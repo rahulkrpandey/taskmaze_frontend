@@ -28,6 +28,9 @@ const ProtectedRoot = () => {
       try {
         const REFRESH_URL = process.env.REACT_APP_REFRESH_URL;
         console.log("Refresh URL", REFRESH_URL);
+        if (!sessionStorage.getItem("REFRESH_TOKEN")) {
+          throw new Error("Refresh Token not available");
+        }
 
         const res = await axios.post(`${REFRESH_URL}`, {
           data: {
