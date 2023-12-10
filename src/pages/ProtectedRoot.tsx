@@ -24,47 +24,48 @@ const ProtectedRoot = () => {
     initialiseRef.current = true;
     const initialiseData = async () => {
       // console.log("initialising protected root");
-      if (AuthDetails.TOKEN.length === 0) {
-        try {
-          const REFRESH_URL = process.env.REACT_APP_REFRESH_URL;
+      // if (AuthDetails.TOKEN.length === 0) {
+      try {
+        const REFRESH_URL = process.env.REACT_APP_REFRESH_URL;
+        console.log("Refresh URL", REFRESH_URL);
 
-          const res = await axios.post(`${REFRESH_URL}`, {
-            data: {
-              refreshToken: sessionStorage.getItem("REFRESH_TOKEN"),
-            },
-          });
+        const res = await axios.post(`${REFRESH_URL}`, {
+          data: {
+            refreshToken: sessionStorage.getItem("REFRESH_TOKEN"),
+          },
+        });
 
-          // console.log(res.data);
+        // console.log(res.data);
 
-          const token = res.data.accessToken;
-          const expiresIn = res.data.expiresIn;
-          const username = res.data.username;
-          if (!token || !expiresIn || !username) {
-            throw new Error("Token or time is invalid");
-          }
-
-          //   AuthDetails.TOKEN = token;
-          //   AuthDetails.expiresIn = expiresIn;
-          //   AuthDetails.USERNAME = username;
-          setAuthDetails({
-            TOKEN: token,
-            expiresIn: expiresIn,
-            USERNAME: username,
-          });
-
-          if (prevTimeoutRef.current) {
-            clearTimeout(prevTimeoutRef.current);
-          }
-
-          prevTimeoutRef.current = setTimeout(() => {
-            initialiseData();
-          }, expiresIn * 1000 - 500);
-        } catch (err) {
-          console.log(err);
-          sessionStorage.removeItem("REFRESH_TOKEN");
-          navigate("/auth");
+        const token = res.data.accessToken;
+        const expiresIn = res.data.expiresIn;
+        const username = res.data.username;
+        if (!token || !expiresIn || !username) {
+          throw new Error("Token or time is invalid");
         }
+
+        //   AuthDetails.TOKEN = token;
+        //   AuthDetails.expiresIn = expiresIn;
+        //   AuthDetails.USERNAME = username;
+        setAuthDetails({
+          TOKEN: token,
+          expiresIn: expiresIn,
+          USERNAME: username,
+        });
+
+        if (prevTimeoutRef.current) {
+          clearTimeout(prevTimeoutRef.current);
+        }
+
+        prevTimeoutRef.current = setTimeout(() => {
+          initialiseData();
+        }, expiresIn * 1000 - 500);
+      } catch (err) {
+        console.log(err);
+        sessionStorage.removeItem("REFRESH_TOKEN");
+        navigate("/auth");
       }
+      // }
     };
 
     initialiseData();
