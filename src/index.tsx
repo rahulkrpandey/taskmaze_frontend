@@ -19,6 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
+        errorElement: <ErrorBoundry />,
         element: (
           <SocketContextProvider>
             <ProtectedRoot />
@@ -27,20 +28,24 @@ const router = createBrowserRouter([
         children: [
           {
             path: "",
+            errorElement: <ErrorBoundry />,
             element: <Project />,
           },
           {
             path: ":pid",
+            errorElement: <ErrorBoundry />,
             element: <Kanban />,
           },
         ],
       },
       {
         path: "auth",
+        errorElement: <ErrorBoundry />,
         element: <Authentication />,
       },
       {
         path: "test",
+        errorElement: <ErrorBoundry />,
         element: <App />,
       },
     ],

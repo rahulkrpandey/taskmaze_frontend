@@ -106,7 +106,7 @@ const ProtectedRoot = () => {
       } catch (err: any) {
         console.log(err);
         setTimeout(() => {
-          initialiseSocket();
+          return initialiseSocket();
         }, 1000);
       }
     };
