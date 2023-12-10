@@ -101,6 +101,8 @@ const ProtectedRoot = () => {
         });
 
         setSocket(socket);
+
+        return socket;
       } catch (err: any) {
         console.log(err);
         setTimeout(() => {
@@ -109,7 +111,11 @@ const ProtectedRoot = () => {
       }
     };
 
-    initialiseSocket();
+    const socket = initialiseSocket();
+
+    return () => {
+      socket?.disconnect();
+    };
   }, [AuthDetails, setAuthDetails]);
 
   return (
