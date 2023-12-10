@@ -27,7 +27,7 @@ const ProtectedRoot = () => {
       if (AuthDetails.TOKEN.length === 0) {
         try {
           const REFRESH_URL = process.env.REACT_APP_REFRESH_URL;
-          
+
           const res = await axios.post(`${REFRESH_URL}`, {
             data: {
               refreshToken: sessionStorage.getItem("REFRESH_TOKEN"),
@@ -60,7 +60,7 @@ const ProtectedRoot = () => {
             initialiseData();
           }, expiresIn * 1000 - 500);
         } catch (err) {
-          // console.log(err);
+          console.log(err);
           sessionStorage.removeItem("REFRESH_TOKEN");
           navigate("/auth");
         }
@@ -74,7 +74,7 @@ const ProtectedRoot = () => {
     const initialiseSocket = () => {
       try {
         if (!setSocket) {
-          // console.log("set socket is undefined");
+          console.log("set socket is undefined");
           return;
         }
 
@@ -89,8 +89,8 @@ const ProtectedRoot = () => {
         });
 
         socket.on("connect_error", (err) => {
-          // console.log(err instanceof Error);
-          // console.log(err.message);
+          console.log(err instanceof Error);
+          console.log(err.message);
           // setTimeout(() => {
           //   initialiseSocket();
           // }, 1000);
@@ -102,7 +102,7 @@ const ProtectedRoot = () => {
 
         setSocket(socket);
       } catch (err: any) {
-        // console.log(err);
+        console.log(err);
         setTimeout(() => {
           initialiseSocket();
         }, 1000);

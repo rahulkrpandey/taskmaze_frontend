@@ -91,6 +91,7 @@ const Kanban = () => {
   const param = useParams();
   const pid: string = param.pid ? param.pid : "";
   const BASE_URL = `${process.env.REACT_APP_BASE_URL}/tasks`;
+  // console.log(BASE_URL);
   const [currentCard, setCurrentCard] = React.useState<CardDataType>({
     title: "title",
     desc: "desc lskdjf lsdkfj sldkfjsldf ",
@@ -321,7 +322,7 @@ const Kanban = () => {
         });
 
         setToastOpen(true);
-        // console.log(err);
+        console.log(err);
       }
     } else {
       // console.log("same");
@@ -384,7 +385,7 @@ const Kanban = () => {
       });
 
       setToastOpen(true);
-      // console.log(err);
+      console.log(err);
     }
   };
 
@@ -436,7 +437,7 @@ const Kanban = () => {
       });
 
       setToastOpen(true);
-      // console.log(err);
+      console.log(err);
     }
   };
 
@@ -532,7 +533,7 @@ const Kanban = () => {
         type: "error",
       });
       setToastOpen(true);
-      // console.log(err);
+      console.log(err);
     }
   };
 
@@ -556,7 +557,7 @@ const Kanban = () => {
         }
       );
 
-      // console.log(res);
+      console.log(res);
       setToastInfo({
         title: "Project info changed successfully",
         description: "",
@@ -579,7 +580,7 @@ const Kanban = () => {
       });
 
       setToastOpen(true);
-      // console.log(err);
+      console.log(err);
     }
   };
 
@@ -597,7 +598,7 @@ const Kanban = () => {
       socket?.emit("delete_project", pid);
       navigate("/");
     } catch (err: any) {
-      // console.log(err);
+      console.log(err);
       setToastInfo({
         title: "Project info could not be deleted",
         description: err.message || "",
@@ -710,7 +711,7 @@ const Kanban = () => {
           navigate("/");
         }
         dataInitialisedRef.current = false;
-        // console.log(err);
+        console.log(err);
       }
     };
 
@@ -749,7 +750,7 @@ const Kanban = () => {
           }
         });
       } catch (err: any) {
-        // console.log(err);
+        console.log(err);
       }
     };
 
